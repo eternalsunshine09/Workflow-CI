@@ -25,13 +25,12 @@ jobs:
 
     - name: Run Model Training via MLflow
       run: |
-        # Menggunakan perintah 'mlflow run' di dalam folder MLProject
-        # Ini akan otomatis membaca file MLProject yang ada di folder tersebut
-        mlflow run MLProject
+        cd MLProject
+        mlflow run . --env-manager=local
 
     - name: Upload MLflow Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: trained-model-artifacts
-        # Menyesuaikan path hasil mlruns yang digenerate oleh MLflow
-        path: mlruns/
+        # Karena kita melakukan 'cd MLProject', folder mlruns akan muncul di dalamnya
+        path: MLProject/mlruns/
