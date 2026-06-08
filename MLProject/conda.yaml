@@ -1,0 +1,10 @@
+name: telco_churn_env
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - scikit-learn
+  - pip
+  - pip:
+    - mlflow==2.19.0

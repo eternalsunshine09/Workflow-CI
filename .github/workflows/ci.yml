@@ -1,0 +1,35 @@
+name: Training Model ML
+
+# Trigger: Workflow akan jalan setiap ada 'push' ke branch main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  train-model:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        pip install mlflow==2.19.0 pandas scikit-learn
+
+    - name: Run MLflow Project
+      run: |
+        cd MLProject
+        mlflow run . --env-manager local
+
+    # SYARAT SKILLED: Menyimpan artifak ke GitHub
+    - name: Upload MLflow Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: trained-model-artifacts
+        path: MLProject/mlruns/
