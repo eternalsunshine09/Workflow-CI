@@ -7,7 +7,6 @@ on:
 jobs:
   train-model:
     runs-on: ubuntu-latest
-    # Menambahkan environment variable sesuai saran GitHub
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -16,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5  # Update ke v5 (Versi terbaru)
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
@@ -24,14 +23,15 @@ jobs:
       run: |
         pip install mlflow==2.19.0 pandas scikit-learn
 
-    - name: Run Model Training
+    - name: Run Model Training via MLflow
       run: |
-        cd MLProject
-        ls -R 
-        python modelling.py
+        # Menggunakan perintah 'mlflow run' di dalam folder MLProject
+        # Ini akan otomatis membaca file MLProject yang ada di folder tersebut
+        mlflow run MLProject
 
     - name: Upload MLflow Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: trained-model-artifacts
-        path: MLProject/mlruns/
+        # Menyesuaikan path hasil mlruns yang digenerate oleh MLflow
+        path: mlruns/
