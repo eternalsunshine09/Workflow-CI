@@ -1,6 +1,5 @@
 name: Training Model ML
 
-# Trigger: Workflow akan jalan setiap ada 'push' ke branch main
 on:
   push:
     branches: [ "main" ]
@@ -11,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Update ke v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -27,9 +26,8 @@ jobs:
         cd MLProject
         mlflow run . --env-manager local
 
-    # SYARAT SKILLED: Menyimpan artifak ke GitHub
     - name: Upload MLflow Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Update ke v4
       with:
         name: trained-model-artifacts
         path: MLProject/mlruns/
