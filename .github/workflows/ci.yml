@@ -7,13 +7,16 @@ on:
 jobs:
   train-model:
     runs-on: ubuntu-latest
+    # Menambahkan environment variable sesuai saran GitHub
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4  # Update ke v4
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # Update ke v5 (Versi terbaru)
       with:
         python-version: '3.11'
 
@@ -27,7 +30,7 @@ jobs:
         mlflow run . --env-manager local
 
     - name: Upload MLflow Artifacts
-      uses: actions/upload-artifact@v4  # Update ke v4
+      uses: actions/upload-artifact@v4
       with:
         name: trained-model-artifacts
         path: MLProject/mlruns/
