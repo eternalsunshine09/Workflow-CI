@@ -21,12 +21,12 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install mlflow==2.19.0 pandas scikit-learn
+        pip install mlflow==2.19.0 pandas scikit-learn==1.5.2
 
     - name: Run Model Training via MLflow
       run: |
         cd MLProject
-        mlflow run . --env-manager=local
+        mlflow run . --env-manager=local --experiment-name="Telco_Churn_CI_Experiment"
 
     - name: Upload MLflow Artifacts
       uses: actions/upload-artifact@v4
